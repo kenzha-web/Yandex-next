@@ -1,6 +1,6 @@
 "use client"
 
-import {FunctionComponent, useEffect, useState} from 'react';
+import {FunctionComponent, useContext, useEffect, useState} from 'react';
 import {useCount} from "@/hooks/useCount";
 import {FilmInfo} from "@/components/FilmInfo/FilmInfo";
 
@@ -14,11 +14,12 @@ export const FilmDetails: FunctionComponent<Props> = ({title, genre, seasonsCoun
 	let {count, increment, decrement} = useCount(0)
 	useEffect(() => {
 		console.log(`count`, count);
-		return () => {}
+		return () => {
+		}
 	}, [count])
 	return (
 		<div>
-			<FilmInfo title={title} genre={genre} seasonsCount={seasonsCount} />
+			<FilmInfo title={title} genre={genre} seasonsCount={seasonsCount}/>
 			<div>
 				<button onClick={decrement}>-</button>
 				{count}

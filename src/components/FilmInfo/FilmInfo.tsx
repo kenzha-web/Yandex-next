@@ -9,6 +9,7 @@ interface Props {
 }
 
 export const FilmInfo: FunctionComponent<Props> = ({title, genre, seasonsCount}) => {
+	
 	return (
 		<Fragment>
 			<p className={classnames(styles.title)}>{title || "Unknown Film"}</p>

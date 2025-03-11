@@ -1,9 +1,15 @@
-import {useReducer} from "react";
+import {useCallback, useEffect, useReducer, useRef} from "react";
 
 const FORM_ACTION = {
 	setName: 'setName',
 	setText: 'setText',
 	setRating: 'setRating'
+}
+
+const initialState = {
+	name: 'Test',
+	text: 'text',
+	rating: 10
 }
 
 // @ts-ignore
@@ -20,23 +26,26 @@ const reducer = (state, action) => {
 	}
 }
 
-const action = {
-
-}
-
 export const NewReviewForm = () => {
-	const initialState = {
-		name: 'Test',
-		text: 'text',
-		rating: 10
-	}
+	const ref = useRef<HTMLInputElement>();
+	const [state, dispatch] = useReducer(reducer, initialState)
 	
 	// @ts-ignore
 	const onNameChange = (event) => dispatch(
 		{type: FORM_ACTION.setName, payload: {name: event.target.value}}
 	)
 	
-	const [state, dispatch] = useReducer(reducer, initialState)
+	// useEffect(() => {
+	// 	if(ref.current) {
+	// 		ref.current.focus();
+	// 	}
+	// }, [])
+	
+	// @ts-ignore
+	const setFocus = useCallback((element) => {
+		element.focus();
+	}, [])
+	
 	return (
 		<div>
 			<label>
@@ -44,7 +53,11 @@ export const NewReviewForm = () => {
 				<input
 					value={state.name}
 					onChange={onNameChange}
-					type="text"/>
+					// @ts-ignore
+					// ref={ref}
+					ref={setFocus}
+					type="text"
+				/>
 			</label>
 			<label>
 				Text:
